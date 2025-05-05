@@ -84,4 +84,4 @@ jobs:
         run: |
           echo "Something went wrong"
           echo "${GITHUB_WORKFLOW} workflow failed"
-          echo "${{ github }}"
+          echo "${{ toJson(github) }}"
