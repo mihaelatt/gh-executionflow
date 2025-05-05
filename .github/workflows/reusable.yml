@@ -2,13 +2,23 @@ name: Reusable Deploy
 on: 
   workflow_call:
     inputs:
-      artifact-name:
+      artifact-name: 
         description: 'Name of the artifact to download'
         required: false
         default: dist
         type: string
+    outputs:
+      result:
+        description: 'The result of the deployment process'
+        value: ${{ jobs.deploy.outputs.outcome }}
+    #secrets:
+      #some-secret:
+        #required: false
+        #description: 'A secret that is required for the reusable workflow'
 jobs:
   deploy:
+    outputs:
+      outcome: ${{ steps.set-result.outputs.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -19,3 +29,6 @@ jobs:
         run: ls
       - name: Output info
         run: echo "Deploying & uploading..."
+      - name: Set result output
+        id: set-result
+        run: echo "::set-otput name=step-result::success"
