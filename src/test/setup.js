@@ -1,1 +1,1 @@
-import '@testing-library/jest-domb';
+import '@testing-library/jest-dom';
